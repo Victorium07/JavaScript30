@@ -38,17 +38,41 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    
+    let filteredAge = inventors.filter(inventor => {
+      if (inventor['year'] > 1499 && inventor['year'] < 1600) return true;
+    });
+    console.table(filteredAge);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    let mappedNames = inventors.map(inventor => inventor.first + ' ' + inventor.last);
+    console.table(mappedNames);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    let sortedBirthdays = inventors.sort((firstItem, secondItem) => {
+      if(firstItem.year > secondItem.year) {return 1;}
+      else {return -1;}
+    });
+    console.table(sortedBirthdays);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    // cumsum
+    let combinedAge = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year);
+    }, 0);
+
+    console.log(`The total number of years is: ${combinedAge}`);
 
     // 5. Sort the inventors by years lived
+    let arrangedByYear = inventors.sort((firstItem, secondItem) => {
+      if (firstItem.passed - firstItem.year > secondItem.passed - secondItem.year) {return 1;}
+      else {return -1;}
+    });
+
+    console.table(arrangedByYear);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -56,11 +80,35 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    let sortedPeople = people.sort();
+    console.table(sortedPeople);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    let dataUnique = [... new Set(data)];
+    let dataCounts = [];
+    for (let i = 0; i < dataUnique.length; i++) {
+      let counter = 0;
+      for (let j = 0; j < data.length; j++) {
+        if (data[j] === dataUnique[i]) {counter += 1;}
+      }
+      dataCounts.push({
+        'Item' : dataUnique[i],
+        'Count' : counter
+      });
+    }
+console.table(dataCounts);
 
+// video solution - WAAAAY SIMPLER THAN MINE, BTW
+//let transportation = data.reduce((obj, item) => {
+//  if(!obj[item]) {
+//    obj[item] = 0;
+//  }
+//  obj[item]++;
+//  return obj;
+//}, {});
+//
   </script>
 </body>
 </html>
